@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+          - name: update repository index
+            dnf:
+                    update_cache: yes
+
+          - name: install nmap package
+            dnf:
+                    name: nmap 
+          - name: insatll httpd keycloak packages
+            dnf:
+                    name: python3-keycloak-httpd-client-install.noarch
+           

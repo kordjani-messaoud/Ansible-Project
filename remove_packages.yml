@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+          - name: remove nmap package
+            dnf:
+                    name: nmap 
+                    state: absent
+
+          - name: remove httpd keycloak packages
+            dnf:
+                    name: python3-keycloak-httpd-client-install.noarch
+                    state: absent
+           
