@@ -3,14 +3,22 @@
 - hosts: all
   become: true
   tasks:
+          - name: Ping Servers
+            ping:
+
           - name: update repository index
             dnf:
                     update_cache: yes
+            when: ansible_distribution == "RedHat" and ansible_version == "8.10"
 
-          - name: install nmap package
+          - name: install php package
             dnf:
-                    name: nmap 
+                    name: php
+                    state: latest
+            when: ansible_distribution in  ["RedHat", "Fedora", "CentOS"]
+
           - name: insatll httpd keycloak packages
             dnf:
                     name: python3-keycloak-httpd-client-install.noarch
+            when: ansible_distribution == "RedHat"
            

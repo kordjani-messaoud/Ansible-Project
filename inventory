@@ -1,5 +1,13 @@
-192.168.0.101
-192.168.0.102
+[web_servers]
+192.168.0.101 package1=php package2=httpd
+192.168.0.104 package1=php package2=apache2
+
+[db_servers]
+192.168.0.102 package1=php package2=httpd
+
+[file_servers]
+192.168.0.103 package1=php package2=apache2
+
 [all:vars]
 ansible_connection=ssh
 ansible_user=ansible
