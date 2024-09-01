@@ -3,15 +3,10 @@
 - hosts: all
   become: true
   tasks:
-          - name: remove php package
-            dnf:
-                    name: php
+          - name: remove php and httpd keycloak packages
+            package:
+                    name: 
+                        - "{[ package1 }}"
+                        - "{[ package2 }}"
                     state: absent
             when: ansible_distribution == "RedHat" and ansible_version == "8.10"
-
-          - name: remove httpd keycloak packages
-            dnf:
-                    name: python3-keycloak-httpd-client-install.noarch
-                    state: absent
-            when: ansible_distribution == "RedHat" and ansible_version == "8.10"
-           

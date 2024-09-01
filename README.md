@@ -1,7 +1,9 @@
-# Ansible-Projectutomation and Ansible Learning Project
-## OverviMew
+# Automation and Ansible Learning Project
+
+## Overview
 
 This repository is dedicated to my journey of learning Automation and Ansible. The project is divided into two phases, each designed to build my knowledge and skills in these areas.
+
 ## Project Phases
 ### Phase 1: Following the Tutorial
 
@@ -13,7 +15,7 @@ The first phase involves following a tutorial from the Learn Linux TV YouTube ch
     - Managing Configurations
     - Automation Best Practices
 
-### Phase 2: Assisting AXA Assurance Algeria
+### Phase 2: Assisting AXA Assurance Algerie
 
 Once I complete the tutorial, the second phase begins. In this phase, I will apply what I've learned to assist the system administrators team at AXA Assurance Algeria with their Ansible deployment project. This will include:
 
@@ -28,7 +30,7 @@ The main goals of this project are:
 
     - To gain a thorough understanding of Ansible and its use cases
     - To develop hands-on experience by working on a real-world project
-    - To contribute to the successful deployment of Ansible at AXA Assurance Algeria
+    - To contribute to the successful deployment of Ansible at AXA Assurance Algerie
 
 ## How to Use This Repository
 
