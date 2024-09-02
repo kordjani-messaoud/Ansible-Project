@@ -1,12 +1,15 @@
+[control_nodes]
+192.168.0.100
+
 [web_servers]
-192.168.0.101 package1=php package2=httpd
-192.168.0.104 package1=php package2=apache2
+192.168.0.101 package=httpd
+192.168.0.104 package=apache2
 
 [db_servers]
-192.168.0.102 package1=php package2=httpd
+192.168.0.102 package=mariadb
 
 [file_servers]
-192.168.0.103 package1=php package2=apache2
+192.168.0.103 package=samba
 
 [all:vars]
 ansible_connection=ssh
