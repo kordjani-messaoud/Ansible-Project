@@ -11,6 +11,19 @@
 [file_servers]
 192.168.0.103 package=samba
 
+[worstations]
+192.168.0.105
+
+[redhat]
+192.168.0.100
+192.168.0.101
+192.168.0.102
+
+[ubuntu]
+192.168.0.103
+192.168.0.104
+192.168.0.105
+
 [all:vars]
 ansible_connection=ssh
 ansible_user=ansible
