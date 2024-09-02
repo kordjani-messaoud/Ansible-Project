@@ -1,0 +1,48 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+          - name: Update packages for Ubuntu servers
+            tags: Ubuntu, Update, Upgrade
+            apt:
+                    update_cache: yes
+                    upgrade: dist
+            when: ansible_distribution == "Ubuntu"
+
+          - name: Update packages for RedHat servers
+            tags: Radhat, Update, Upgrade
+            dnf:
+                    update_only: yes
+                    update_cache: yes 
+            when: ansible_distribution == "RedHat"
+
+- hosts: web_servers
+  become: true
+  tasks:
+          - name: Install apache2
+            tags: Apache2,Web
+            package:
+                    name: "{{ package }}"
+
+                    state: latest
+
+- hosts: db_servers
+  become: true
+  tasks:
+          - name: Install MariaDB
+            tags: DataBase,Mariadb,RedHat
+            dnf:
+                    name: "{{ package }}"
+
+                    state: latest
+
+- hosts: file_servers
+  become: true
+  tasks:
+          - name: Install Samba
+            tags: Samba,SMB,Ubuntu
+            apt:
+                    name: "{{ package }}"
+
+                    state: latest
