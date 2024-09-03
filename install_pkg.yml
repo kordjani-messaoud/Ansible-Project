@@ -1,17 +1,16 @@
 ---
-
 - hosts: all
   become: true
   pre_tasks:
           - name: Update packages for Ubuntu servers
-            tags: Ubuntu, Update, Upgrade
+            tags: ubuntu, update, upgrade
             apt:
                     update_cache: yes
                     upgrade: dist
             when: ansible_distribution == "Ubuntu"
 
           - name: Update packages for RedHat servers
-            tags: Radhat, Update, Upgrade
+            tags: radhat, update, upgrade
             dnf:
                     update_only: yes
                     update_cache: yes 
@@ -21,7 +20,7 @@
   become: true
   tasks:
           - name: Install apache2
-            tags: Apache2,Web
+            tags: apache2,web
             package:
                     name: "{{ package }}"
 
@@ -31,7 +30,7 @@
   become: true
   tasks:
           - name: Install MariaDB
-            tags: DataBase,Mariadb,RedHat
+            tags: database,mariadb,redhat
             dnf:
                     name: "{{ package }}"
 
@@ -41,7 +40,7 @@
   become: true
   tasks:
           - name: Install Samba
-            tags: Samba,SMB,Ubuntu
+            tags: samba,smb,ubuntu
             apt:
                     name: "{{ package }}"
 
