@@ -1,0 +1,36 @@
+---
+- hosts: web_servers
+  become: true
+  tasks:
+          - name: Start apache2 on RedHat
+            tags: redhat, apache2, httpd, start
+            service:
+                    name: "{{ package }}"
+                    state: started
+                    enabled: yes
+            when: ansible_distribution == "RedHat"
+
+          - name: Change e-mail address for admin
+            tags: redhat, apache2
+            lineinfile:
+                    path: "{{ path }}"
+                    regexp: "^ServerAdmin"
+                    line: ServerAdmin sysadmin@axa-algerie.com
+            when: ansible_distribution == "RedHat"
+            register: serveradmin_email
+
+          - name: Change error-log file
+            tags: redhat, httpd, error-log
+            lineinfile:
+                    path: "{{ path }}"
+                    regexp: "^ErrorLog"
+                    line: ErrorLog logs/error_log.log
+            when: ansible_distribution == "RedHat"
+            register: errorlog_file
+
+          - name: Restart apache2 server
+            tags: ubuntu, redhat, web, restart, apache2
+            service:
+                    name: "{{ package }}"
+                    state: restarted
+            when: serveradmin_email.changed and errorlog_file.changed

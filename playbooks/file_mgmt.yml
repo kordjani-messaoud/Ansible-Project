@@ -1,0 +1,40 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+          - name: Update
+            tags: always
+            package:
+                    update_cache: yes
+                    update_only: yes
+            
+- hosts: web_servers
+  become: true
+  tasks:
+          - name: Copy default html file for site
+            tags: apache, web
+            copy:
+                    src: default_site.html
+                    dest: /var/www/html/index.txt
+                    owner: root
+                    group: root
+                    mode: 0644
+
+- hosts: workstations
+  become: true
+  tasks:
+          - name: Install unzip
+            tags: unzip, workstations, workstaions
+            package:
+                    name: unzip
+                    state: latest
+
+          - name: Install Terraform
+            tags: terraform, workstation, workstations
+            unzip:
+                    src: https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip\
+                    dest: /usr/local/bin
+                    remote_src: yes
+                    mode: 0755
+                    owner: root
+                    group: root
