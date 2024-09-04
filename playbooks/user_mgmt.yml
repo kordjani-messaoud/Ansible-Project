@@ -4,21 +4,30 @@
   become: true
   tasks:
           - name: Create simone user (RedHat)
-            user:
+            ansible.builtin.user:
                     name: simone
                     groups: wheel
             when: ansible_distribution == "RedHat"
+            register: simone_created_redhat
+
 
           - name: Crate simone user (Ubnutu)
-            user:
+            ansible.builtin.user:
                     name: simone
                     groups: sudo
             when: ansible_distribution == "Ubuntu"
+            register: simone_created_ubuntu
 
-          - name: Copy SSH keys to ansible user
-            authorized_key:
-                    user: ansible
-                    key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCn1RVDOhbFrcw1H4FiY3Z5efFrm4qqD+6UpuT0Wgo0VIcAJi8m+5yRmHYdcIsNZPZDHAWY1g0+EGkBu50Nj8d8qxfahUH0KseOVl3WAcQDu+3ILaRDKGHh+Y4H31zs+523+rh9yrWdtdD7j4tDqJafG0NX5+pQikkIyKwQsQz5wFmsto8OjGlXKBFJf6oNQhYVdclURpZIh4F2pLSlSbfx1+k1VtGNQlmTmq72rQalNCrWIU9Fsiqt77TIq3XjCe87A7cfwV6ZEWCOvzy7WXkVA2eX9EpMHIJBVtd7jod9f1c0F1N7zciMbsTT35jlNHjwDSbUA8wQkGcj/sTDAvPv  RSA key for Non-interactive SSH connection establishment
-            register: key_copied
-            when: key_copied is undefined
-            ignore_errors: true
+            #            - name: Copy SSH keys to ansible user
+            #              authorized_key:
+            #                      user: ansible
+            #                      key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCn1RVDOhbFrcw1H4FiY3Z5efFrm4qqD+6UpuT0Wgo0VIcAJi8m+5yRmHYdcIsNZPZDHAWY1g0+EGkBu50Nj8d8qxfahUH0KseOVl3WAcQDu+3ILaRDKGHh+Y4H31zs+523+rh9yrWdtdD7j4tDqJafG0NX5+pQikkIyKwQsQz5wFmsto8OjGlXKBFJf6oNQhYVdclURpZIh4F2pLSlSbfx1+k1VtGNQlmTmq72rQalNCrWIU9Fsiqt77TIq3XjCe87A7cfwV6ZEWCOvzy7WXkVA2eX9EpMHIJBVtd7jod9f1c0F1N7zciMbsTT35jlNHjwDSbUA8wQkGcj/sTDAvPv  RSA key for Non-interactive SSH connection establishment
+            
+          - name: Add sudoers file for simone
+            ansible.builtin.copy:
+                    src: ../files/sudoers_simone
+                    dest: /etc/sudoers.d/simone
+                    owner: root
+                    group: root
+                    mode: 0440
+            when: simone_created_redhat.changed or simone_created_ubuntu.changed

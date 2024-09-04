@@ -8,8 +8,6 @@
 
           - name: install packages
             package:
-                    name: 
-                        - "{{ package1 }}"
-                        - "{{ package2 }}"
+                    name: "{{ package }}"
                     state: latest
                     update_cache: yes
