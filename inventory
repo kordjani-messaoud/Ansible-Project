@@ -2,8 +2,8 @@
 192.168.0.100
 
 [web_servers]
-192.168.0.101 package=httpd
-192.168.0.104 package=apache2
+192.168.0.101 package=httpd path=/etc/httpd/conf/httpd.conf
+192.168.0.104 package=apache2 path=/etc/apache2/apache2.conf
 
 [db_servers]
 192.168.0.102 package=mariadb
