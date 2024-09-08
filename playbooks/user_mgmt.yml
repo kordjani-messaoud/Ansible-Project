@@ -36,7 +36,6 @@
                     owner: root
                     group: root
                     mode: 0440
-
   handlers:
           - name: restart_sshd
             ansible.builtin.service:
