@@ -4,21 +4,18 @@
   become: true
   tasks:
           - name: Create simone user (RedHat)
-            ansible.builtin.user:
+            user:
                     name: simone
                     groups: root
                     append: true
             when: ansible_distribution == "RedHat"
-            register: simone_created_redhat
-
 
           - name: Crate simone user (Ubnutu)
-            ansible.builtin.user:
+            user:
                     name: simone
                     groups: root
                     append: true
             when: ansible_distribution == "Ubuntu"
-            register: simone_created_ubuntu
 
           - name: Copy SSH keys to ansible user
             authorized_key:
