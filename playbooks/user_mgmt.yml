@@ -6,7 +6,8 @@
           - name: Create simone user (RedHat)
             ansible.builtin.user:
                     name: simone
-                    groups: wheel
+                    groups: root
+                    append: true
             when: ansible_distribution == "RedHat"
             register: simone_created_redhat
 
@@ -14,15 +15,23 @@
           - name: Crate simone user (Ubnutu)
             ansible.builtin.user:
                     name: simone
-                    groups: sudo
+                    groups: root
+                    append: true
             when: ansible_distribution == "Ubuntu"
             register: simone_created_ubuntu
 
-            #            - name: Copy SSH keys to ansible user
-            #              authorized_key:
-            #                      user: ansible
-            #                      key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCn1RVDOhbFrcw1H4FiY3Z5efFrm4qqD+6UpuT0Wgo0VIcAJi8m+5yRmHYdcIsNZPZDHAWY1g0+EGkBu50Nj8d8qxfahUH0KseOVl3WAcQDu+3ILaRDKGHh+Y4H31zs+523+rh9yrWdtdD7j4tDqJafG0NX5+pQikkIyKwQsQz5wFmsto8OjGlXKBFJf6oNQhYVdclURpZIh4F2pLSlSbfx1+k1VtGNQlmTmq72rQalNCrWIU9Fsiqt77TIq3XjCe87A7cfwV6ZEWCOvzy7WXkVA2eX9EpMHIJBVtd7jod9f1c0F1N7zciMbsTT35jlNHjwDSbUA8wQkGcj/sTDAvPv  RSA key for Non-interactive SSH connection establishment
-            
+          - name: Copy SSH keys to ansible user
+            authorized_key:
+                    user: simone
+                    key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTKzu6uauqzagOAREXmG1Egmxjj8AHk0kIea3onM1z8+MnEJ5XMe3vQt6q/D+cnr/vjipw30cKNuBoCvJAWoC3DA3tk39NcQF2gnoYDcaQGVcb/706Vqyj/EMNJMpC50iublEkmHid4+sxUbnB6B6e/SHK3xm7N7wN0O50pN/NRxslOtreOy9GnJhrtYS0q9Qmq4zKqH7eBXiyth9BtAj9EiBneVHcbeEe/QAkRRLuHF9W4uYZkpwpgxqEK4+088w4vpm6wZt1UY2ASUbDtU+rAsENf968poCi6N5qaSaviYGATCSM+co3XS2edOmYJDzeT6HSObnA2x+0vkjK6zeN SSH key for simone user authentication" 
+
+          - name: Enable public key authentication
+            lineinfile:
+                    path: /etc/ssh/sshd_config
+                    regexp: "PubkeyAuthentication*"
+                    line: PubkeyAuthentication yes
+            notify: restart_sshd
+
           - name: Add sudoers file for simone
             ansible.builtin.copy:
                     src: ../files/sudoers_simone
@@ -30,4 +39,9 @@
                     owner: root
                     group: root
                     mode: 0440
-            when: simone_created_redhat.changed or simone_created_ubuntu.changed
+
+  handlers:
+          - name: restart_sshd
+            ansible.builtin.service:
+                    name: sshd
+                    state: restarted
