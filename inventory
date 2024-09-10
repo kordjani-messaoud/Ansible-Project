@@ -11,7 +11,7 @@
 [file_servers]
 192.168.0.103 package=samba
 
-[worstations]
+[workstations]
 192.168.0.105
 
 [redhat]
