@@ -1,0 +1,11 @@
+- name: Restart Apache2 (Ubuntu)
+  service:
+          name: apache2
+          state: restart
+  when: ansible_distribution == "Ubuntu"
+
+- name: Restart Apache2 (RedHat)
+  service:
+          name: httpd
+          state: restart
+  when: ansible_distribution == "RedHat"

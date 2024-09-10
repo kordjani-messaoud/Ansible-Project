@@ -1,0 +1,6 @@
+- name: Install samba package
+  tags: samba, smb, file-sharing
+  package:
+          name: samba
+          state: latest
+

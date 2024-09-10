@@ -1,0 +1,39 @@
+- name: Insatall Apache2 web server package (Ubuntu)
+  tags: ubuntu, apache2, web-server
+  apt:
+          name:
+                  - apache2
+                  - php
+          state: latest
+  when: ansible_distribution == "Ubuntu"
+
+- name: Insatall Apache2 web server package (RedHat)
+  tags: redhat, apache2, web-server
+  dnf:
+          name:
+                  - httpd
+                  - php
+          state: latest
+  when: ansible_distribution == "RedHat"
+
+- name: Copy default html file for site (Ubuntu)
+  tags: ubuntu, apache, web
+  copy:
+          src: default_site.html
+          dest: /var/www/html/index.txt
+          owner: root
+          group: root
+          mode: 0644
+  notify: Restart Apache2 (Ubuntu)
+  when: ansible_distribution == "Ubuntu"
+
+- name: Copy default html file for site (RedHat)
+  tags: redhat, apache, web
+  copy:
+          src: default_site.html
+          dest: /var/www/html/index.txt
+          owner: root
+          group: root
+          mode: 0644
+  notify: Restart Apache2 (RedHat)
+  when: ansible_distribution == "RedHat"
