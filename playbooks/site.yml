@@ -4,14 +4,12 @@
   become: true
   pre_tasks:
           - name: Update repository index (RedHat)
-            tags: always
             dnf:
                     update_cache: yes
             changed_when: false
             when: ansible_distribution == "RedHat"
 
           - name: Update repository index (Ubuntu)
-            tags: always
             apt:
                     update_cache: yes
             changed_when: false
