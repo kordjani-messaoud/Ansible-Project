@@ -2,24 +2,14 @@
 192.168.0.100
 
 [web_servers]
-192.168.0.101 package=httpd path=/etc/httpd/conf/httpd.conf
-192.168.0.104 package=apache2 path=/etc/apache2/apache2.conf
+192.168.0.101 
+192.168.0.104 
 
 [db_servers]
-192.168.0.102 package=mariadb
+192.168.0.102 
 
 [file_servers]
-192.168.0.103 package=samba
+192.168.0.103 
 
 [workstations]
-192.168.0.105
-
-[redhat]
-192.168.0.100
-192.168.0.101
-192.168.0.102
-
-[ubuntu]
-192.168.0.103
-192.168.0.104
 192.168.0.105
