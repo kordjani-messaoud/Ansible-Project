@@ -1,0 +1,9 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+          - name: Remove packages
+            package:
+                    name: "{{ package }}"
+                    state: absent

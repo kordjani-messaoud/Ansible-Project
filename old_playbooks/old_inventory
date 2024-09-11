@@ -1,0 +1,25 @@
+[control_nodes]
+192.168.0.100
+
+[web_servers]
+192.168.0.101 package=httpd path=/etc/httpd/conf/httpd.conf
+192.168.0.104 package=apache2 path=/etc/apache2/apache2.conf
+
+[db_servers]
+192.168.0.102 package=mariadb
+
+[file_servers]
+192.168.0.103 package=samba
+
+[workstations]
+192.168.0.105
+
+[redhat]
+192.168.0.100
+192.168.0.101
+192.168.0.102
+
+[ubuntu]
+192.168.0.103
+192.168.0.104
+192.168.0.105
