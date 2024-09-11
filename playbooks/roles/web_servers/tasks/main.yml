@@ -1,39 +1,29 @@
-- name: Insatall Apache2 web server package (Ubuntu)
-  tags: ubuntu, apache2, web-server
-  apt:
+- name: Insatall Apache2 web server package
+  package:
           name:
-                  - apache2
-                  - php
+                  - "{{ apache2_package }}"
+                  - "{{ php_package }}"
           state: latest
-  when: ansible_distribution == "Ubuntu"
 
-- name: Insatall Apache2 web server package (RedHat)
-  tags: redhat, apache2, web-server
-  dnf:
-          name:
-                  - httpd
-                  - php
-          state: latest
-  when: ansible_distribution == "RedHat"
+- name: Start Apache2 web service
+  tags: start_service
+  service:
+          name: "{{ apache2_service }}"
+          state: started
+          enabled: yes
 
-- name: Copy default html file for site (Ubuntu)
-  tags: ubuntu, apache, web
+- name: Copy default html file for site
   copy:
           src: default_site.html
           dest: /var/www/html/index.txt
           owner: root
           group: root
           mode: 0644
-  notify: Restart Apache2 (Ubuntu)
-  when: ansible_distribution == "Ubuntu"
+  notify: Restart Apache2
 
-- name: Copy default html file for site (RedHat)
-  tags: redhat, apache, web
-  copy:
-          src: default_site.html
-          dest: /var/www/html/index.txt
-          owner: root
-          group: root
-          mode: 0644
-  notify: Restart Apache2 (RedHat)
-  when: ansible_distribution == "RedHat"
+- name: Change e-mail address for admin
+  lineinfile:
+          path: "{{ apache2_config_file }}"
+          regexp: "^ServerAdmin"
+          line: ServerAdmin sysadmin@axa-algerie.com
+  notify: Restart Apache2
