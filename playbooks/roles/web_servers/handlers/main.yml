@@ -1,4 +1,5 @@
 - name: Restart Apache2
   service:
           name: "{{ apache2_service }}"
-          state: restart
+          state: restarted
+  ignore_errors: yes

@@ -11,11 +11,12 @@
           name: "{{ apache2_service }}"
           state: started
           enabled: yes
+  ignore_errors: yes
 
 - name: Copy default html file for site
   copy:
           src: default_site.html
-          dest: /var/www/html/index.txt
+          dest: /var/www/html/index.html
           owner: root
           group: root
           mode: 0644
@@ -25,5 +26,5 @@
   lineinfile:
           path: "{{ apache2_config_file }}"
           regexp: "^ServerAdmin"
-          line: ServerAdmin sysadmin@axa-algerie.com
+          line: ServerAdmin messaoud@axa-algerie.com
   notify: Restart Apache2
