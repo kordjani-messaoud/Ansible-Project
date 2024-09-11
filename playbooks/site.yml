@@ -24,21 +24,24 @@
 
 - hosts: workstations
   become: true
+  tags: workstations
   roles:
           - workstations
 
 - hosts: web_servers
   become: true
+  tags: web_servers
   roles:
           - web_servers
 
 - hosts: db_servers
   become: true
+  tags: db_servers
   roles:
           - db_servers
 
 - hosts: file_servers
   become: true
+  tags: file_servers
   roles:
           - file_servers
-
