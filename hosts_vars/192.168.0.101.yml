@@ -1,0 +1,5 @@
+apache2_package: httpd
+apache2_service: httpd
+php_package: php
+apache2_config_file: /etc/httpd/conf/httpd.conf
+
