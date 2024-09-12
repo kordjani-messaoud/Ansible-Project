@@ -3,3 +3,12 @@
   authorized_key:
           user: simone
           key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTKzu6uauqzagOAREXmG1Egmxjj8AHk0kIea3onM1z8+MnEJ5XMe3vQt6q/D+cnr/vjipw30cKNuBoCvJAWoC3DA3tk39NcQF2gnoYDcaQGVcb/706Vqyj/EMNJMpC50iublEkmHid4+sxUbnB6B6e/SHK3xm7N7wN0O50pN/NRxslOtreOy9GnJhrtYS0q9Qmq4zKqH7eBXiyth9BtAj9EiBneVHcbeEe/QAkRRLuHF9W4uYZkpwpgxqEK4+088w4vpm6wZt1UY2ASUbDtU+rAsENf968poCi6N5qaSaviYGATCSM+co3XS2edOmYJDzeT6HSObnA2x+0vkjK6zeN SSH key for simone user authentication" 
+
+- name: Generate sshd_config file from template
+  template:
+          src: "{{ ssh_template_file }}"
+          dest: /etc/ssh/sshd_config
+          owner: root
+          group: root
+          mode: 0644
+  notify: Restart sshd
