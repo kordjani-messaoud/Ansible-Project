@@ -2,4 +2,6 @@ apache2_package: httpd
 apache2_service: httpd
 php_package: php
 apache2_config_file: /etc/httpd/conf/httpd.conf
-
+ssh_users: "sysadmin simone"
+ssh_template_file: sshd_config_redhat.j2
+os_distro: redhat

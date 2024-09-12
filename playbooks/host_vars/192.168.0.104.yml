@@ -2,3 +2,6 @@ apache2_package: apache2
 apache2_service: apache2
 php_package: php
 apache2_config_file: /etc/apache2/apache2.conf
+ssh_users: "sysadmin simone"
+ssh_template_file: sshd_config_ubuntu.j2
+os_distro: ubuntu
